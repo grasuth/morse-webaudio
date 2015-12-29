@@ -1,0 +1,23 @@
+<html>
+<head>
+</head>
+<body>
+<script>
+var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+var oscillator = audioCtx.createOscillator();
+
+var gainNode = audioCtx.createGain();
+
+oscillator.connect(gainNode);
+gainNode.connect(audioCtx.destination);
+
+//
+// oscillator
+// -> gain
+// -> some shaping?
+// modulation?
+
+</script>
+</body>
+</html>

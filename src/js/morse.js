@@ -1,6 +1,8 @@
 
 var MorseGenerator = function () {
-  var me = {};
+  var mg = {};
+
+  mg.symbolMs = 100;
 
   mg.morseEncoding = {
       a: [1, 3],
@@ -62,7 +64,7 @@ var MorseGenerator = function () {
       '@': [1, 3, 3, 1, 3, 1]
     };
 
-  };
+  mg.keyer = null;
 
   mg.audioCtx = null;
   mg.oscillator = null;
@@ -77,33 +79,80 @@ var MorseGenerator = function () {
       mg.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     }
 
-    mg.oscillator = audioCtx.createOscillator();
-    mg.gainNode = audioCtx.createGain();
+    mg.oscillator = mg.audioCtx.createOscillator();
+    mg.gainNode = mg.audioCtx.createGain();
     mg.oscillator.connect(mg.gainNode);
+    mg.oscillator.start();
 
     //TODO set gain to 0
+    mg.gainNode.gain.value = 0;
 
     mg.gainNode.connect(mg.audioCtx.destination);
   };
 
   /**
    * Generate Morse for given data string
+   * 
+   * @returns {object} Promise resolving as true when done.
    */
 
   mg.key = function(data) {
+    var keys = data.split('');
+
     mg.initAudio();
-    // for each character, set up vol and timer
+
+    function doKey() {
+      k = keys.shift();
+      if (k) {
+        return mg.keyCharacter(k)
+          .then(function () {
+            return doKey();
+          });
+      } else {
+        return Promise.resolve(true);
+      };
+    }
+
+    return doKey();
   };
 
   /**
    * Key a single character
+   *
+   * @returns Promise that is resolved with true when complete.
    */
   mg.keyCharacter = function(c) {
-    var morse = mg.morseEncoding[c] + ','
-      , symbol;
-    
-    symbol = morse.pop();
+    var morse = mg.morseEncoding[c]
+      , cooked = []
+      , symbol
+      , promise = Promise.defer();
 
+    // add inter-symbol delays
+    morse.forEach(function(s) {
+      cooked.push(s);
+      cooked.push(-1);
+    });
+    // Add between-symbol delay
+    cooked.push(-2);
+
+    function key() {
+      var symbol = cooked.shift();
+      if (symbol) {
+        var delay = Math.abs(symbol) * mg.symbolMs
+          , gain = symbol > 0 ? 1 : 0;
+
+        mg.gainNode.gain.value = gain;
+        console.log(gain, delay);
+        setTimeout(key, delay);
+        return promise.promise;
+      } else {
+        mg.gainNode.gain.value = 0;
+        console.log(0);
+        return promise.resolve(true);
+      }
+    };
+
+   return key(); 
   };
 
   /**
@@ -116,7 +165,7 @@ var MorseGenerator = function () {
 
   mg.close = function() {
     mg.stop();
-  }
+  };
 
   return mg;
 };

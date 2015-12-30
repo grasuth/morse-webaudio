@@ -2,21 +2,21 @@
 <head>
 </head>
 <body>
-<script>
-var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+<h1>test</h1>
+<textarea id="data" name="data"></textarea>
+<button id="go" name="go">Go</button>
+<script src="js/jquery.min.js"></script>
+<script src="js/morse.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+  $('#go').click(function(e) {
+    var data = $('#data').val()
+      , mg = MorseGenerator();
 
-var oscillator = audioCtx.createOscillator();
+    mg.key(data);
+  });
 
-var gainNode = audioCtx.createGain();
-
-oscillator.connect(gainNode);
-gainNode.connect(audioCtx.destination);
-
-//
-// oscillator
-// -> gain
-// -> some shaping?
-// modulation?
+});
 
 </script>
 </body>

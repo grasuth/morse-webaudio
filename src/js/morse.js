@@ -84,7 +84,6 @@ var MorseGenerator = function () {
     mg.oscillator.connect(mg.gainNode);
     mg.oscillator.start();
 
-    //TODO set gain to 0
     mg.gainNode.gain.value = 0;
 
     mg.gainNode.connect(mg.audioCtx.destination);
@@ -142,12 +141,12 @@ var MorseGenerator = function () {
           , gain = symbol > 0 ? 1 : 0;
 
         mg.gainNode.gain.value = gain;
-        console.log(gain, delay);
-        setTimeout(key, delay);
+        // console.log(gain, delay);
+        mg.keyer = setTimeout(key, delay);
         return promise.promise;
       } else {
         mg.gainNode.gain.value = 0;
-        console.log(0);
+        // console.log(0);
         return promise.resolve(true);
       }
     };
@@ -159,8 +158,12 @@ var MorseGenerator = function () {
    * Disable all timers and make quiet
    */
   mg.stop = function() {
-    //TODO gain to zero
-    //turn off timers
+    if (mg.gainNode) {
+      mg.gainNode.gain.value = 0;
+    }
+    if (mg.keyer) {
+      clearTimeout(mg.keyer);
+    };
   };
 
   mg.close = function() {

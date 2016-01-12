@@ -1,11 +1,12 @@
 # Introduction
 
-This is (so far) a test of generating morse code using Web Audio APIs.
+With the arrival of the WebAudio APIs, here's a morse code generator based on WebAudio.
 
-At this point, this is really set up as a test for browser support across dekstop and mobile browsers.
+So far this is a sketch set up as a test for browser support across dekstop and mobile browsers. 
 
 # TODO
 
+* Cross-browserness
 * Tests
   * unit tests
   * calibration of generation speed (WPM)

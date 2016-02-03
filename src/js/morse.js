@@ -59,7 +59,6 @@ var MorseGenerator = function () {
       '_': [1, 1, 3, 3, 1, 3],
       '"': [1, 3, 1, 1, 3, 1],
       '$': [1, 1, 1, 3, 1, 1, 3],
-      // Note: Some operators prefer "!" as "___." and others as "_._.__"
       '!': [3, 1, 3, 1, 3, 3],
       '@': [1, 3, 3, 1, 3, 1]
     };

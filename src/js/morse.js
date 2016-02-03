@@ -1,8 +1,12 @@
 
 var MorseGenerator = function () {
   var mg = {};
+  
+  mg.started = false;
 
   mg.symbolMs = 100;
+  
+  mg.oscillatorFrequency = 400;
 
   mg.morseEncoding = {
       a: [1, 3],
@@ -74,6 +78,8 @@ var MorseGenerator = function () {
    *
    */
   mg.initAudio = function() {
+    mg.started = true;
+    
     if (mg.audioCtx === null){
       mg.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     }
@@ -81,12 +87,17 @@ var MorseGenerator = function () {
     mg.oscillator = mg.audioCtx.createOscillator();
     mg.gainNode = mg.audioCtx.createGain();
     mg.oscillator.connect(mg.gainNode);
+    mg.oscillator.frequency.value = mg.oscillatorFrequency;
     mg.oscillator.start();
 
     mg.gainNode.gain.value = 0;
 
     mg.gainNode.connect(mg.audioCtx.destination);
   };
+  
+  mg.setWpm = function(wpm) {
+    mg.symbolMs =  6/(wpm * 5) * 1000;
+  }
 
   /**
    * Generate Morse for given data string
@@ -96,13 +107,18 @@ var MorseGenerator = function () {
 
   mg.key = function(data) {
     var keys = data.split('');
+    
+    console.log('keys: ', keys);
 
-    mg.initAudio();
+    if (!mg.started) {
+      mg.initAudio();
+    }
 
     function doKey() {
-      k = keys.shift();
+      var k = keys.shift();
+      
       if (k) {
-        return mg.keyCharacter(k)
+        return mg.keyCharacter(k.toLowerCase())
           .then(function () {
             return doKey();
           });
@@ -140,12 +156,11 @@ var MorseGenerator = function () {
           , gain = symbol > 0 ? 1 : 0;
 
         mg.gainNode.gain.value = gain;
-        // console.log(gain, delay);
         mg.keyer = setTimeout(key, delay);
         return promise.promise;
       } else {
         mg.gainNode.gain.value = 0;
-        // console.log(0);
+        
         return promise.resolve(true);
       }
     };
@@ -170,4 +185,19 @@ var MorseGenerator = function () {
   };
 
   return mg;
+};
+
+var MorseDecoder = function () {
+  
+  var md = {}
+    , mg = MorseGenerator();
+  
+  // TODO: sorted-flipped symbol table
+  
+  // narrow bandpass filter
+  md.centreFrequency = 400;
+  
+  //threshold on output
+  md.symbolOnThreshold = 50;
+  
 };

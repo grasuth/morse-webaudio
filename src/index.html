@@ -2,9 +2,12 @@
 <head>
 </head>
 <body>
-<h1>test</h1>
-<textarea id="data" name="data"></textarea>
-<button id="go" name="go">Go</button>
+<h1>Morse for Webaudio</h1>
+<label for="data">Text</label>
+<textarea id="data" name="data"></textarea><br/>
+<label for="wpm">Words per minute</label>
+<input type="text" name="wpm" id="wpm" value="18" maxlength="2">
+<button id="go" name="go">Send audio</button>
 <script src="js/jquery.min.js"></script>
 <script src="js/morse.js"></script>
 <script type="text/javascript">
@@ -12,7 +15,7 @@ $(document).ready(function () {
   $('#go').click(function(e) {
     var data = $('#data').val()
       , mg = MorseGenerator();
-
+    mg.setWpm($('#wpm').val());
     mg.key(data);
   });
 

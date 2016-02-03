@@ -1,0 +1,24 @@
+<html>
+<head>
+</head>
+<body>
+<h1>Zen CW Lessons</h1>
+<button id="go" name="go">Go</button>
+<div id="display"></div>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/morse.js"></script>
+<script src="js/zen.js"></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    var mg = MorseGenerator()
+      , zt = ZenTutor
+      , $display = $('#display'); 
+      
+    $('#go').click(function(e) {
+      zt.train(mg, 1, 1, $display);
+    });
+  });
+</script>
+</body>
+</html>

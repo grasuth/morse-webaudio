@@ -3,7 +3,28 @@
 </head>
 <body>
 <h1>Zen CW Lessons</h1>
+<div>
+  <label for="week">Week 
+    <select name="week" id="week">
+      <option value="1" selected>1: ETANIM</option>
+    </select>
+  </label>
+</div>
+<div>
+  <label for="day">Day 
+    <select name="day" id="day">
+      <option value="1"selected>1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+    </select>
+  </label>
+</div>
 <button id="go" name="go">Go</button>
+<button id="stop">Stop</button><br/>
 <div id="display"></div>
 
 <script src="js/jquery.min.js"></script>
@@ -13,10 +34,20 @@
   $(document).ready(function () {
     var mg = MorseGenerator()
       , zt = ZenTutor
-      , $display = $('#display'); 
+      , $display = $('#display');
       
     $('#go').click(function(e) {
-      zt.train(mg, 1, 1, $display);
+      var week = $('#week').val()
+        , day = $('#day').val();
+     
+      console.log(week, day);   
+      zt.train(mg, week, day, $display)
+        .catch(function(e) {
+          // stop
+        });
+    });
+    $('#stop').click(function() {
+      zt.stop();
     });
   });
 </script>

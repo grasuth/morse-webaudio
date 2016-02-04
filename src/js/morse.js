@@ -108,8 +108,6 @@ var MorseGenerator = function () {
   mg.key = function(data) {
     var keys = data.split('');
     
-    console.log('keys: ', keys);
-
     if (!mg.started) {
       mg.initAudio();
     }

@@ -22,7 +22,7 @@
       <option value="7">7</option>
     </select>
   </label>
-</div>
+</div><br/>
 <button id="go" name="go">Go</button>
 <button id="stop">Stop</button><br/>
 <div id="display"></div>
@@ -39,8 +39,8 @@
     $('#go').click(function(e) {
       var week = $('#week').val()
         , day = $('#day').val();
-     
-      console.log(week, day);   
+      
+      $display.empty();
       zt.train(mg, week, day, $display)
         .catch(function(e) {
           // stop

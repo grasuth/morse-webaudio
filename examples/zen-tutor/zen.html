@@ -9,7 +9,7 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </head>
-<body>
+<body ngApp="zenCW">
 <h1>Zen CW Lessons</h1>
 <div>
   <label for="week">Week 
@@ -37,10 +37,11 @@
 <div class="flashcard">
 
 </div>
-
+<script src="js/angular.min.js"></script>
+<script src="js/angular-route.min.js"></script>
 <script src="js/jquery.min.js"></script>
 <script src="js/morse.js"></script>
-<script src="js/zen.js"></script>
+<script src="../../lib/zen.js"></script>
 <script type="text/javascript">
   $(document).ready(function () {
     var mg = MorseGenerator()

@@ -6,14 +6,13 @@ So far this is a sketch set up as a test for browser support across dekstop and 
 
 # TODO
 
+* Packaging
 * Cross-browserness
 * Tests
   * unit tests
   * calibration of generation speed (WPM)
 * Tidy up code
 * A decent test example on github.io site
-* Packaging
-* Morse generation from web audio APIs.
 
 # Status
 

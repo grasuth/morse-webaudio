@@ -7,7 +7,8 @@
     "example": "examples"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src -d dist"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/grasuth/morse-webaudio/issues"
   },
-  "homepage": "https://github.com/grasuth/morse-webaudio#readme"
+  "homepage": "https://github.com/grasuth/morse-webaudio#readme",
+  "devDependencies": {
+    "babel-cli": "^6.9.0"
+  }
 }

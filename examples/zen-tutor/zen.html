@@ -1,5 +1,13 @@
 <html>
 <head>
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </head>
 <body>
 <h1>Zen CW Lessons</h1>
@@ -22,10 +30,13 @@
       <option value="7">7</option>
     </select>
   </label>
-</div>
+</div><br/>
 <button id="go" name="go">Go</button>
 <button id="stop">Stop</button><br/>
 <div id="display"></div>
+<div class="flashcard">
+
+</div>
 
 <script src="js/jquery.min.js"></script>
 <script src="js/morse.js"></script>
@@ -39,8 +50,8 @@
     $('#go').click(function(e) {
       var week = $('#week').val()
         , day = $('#day').val();
-     
-      console.log(week, day);   
+      
+      $display.empty();
       zt.train(mg, week, day, $display)
         .catch(function(e) {
           // stop

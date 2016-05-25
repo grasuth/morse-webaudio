@@ -1,0 +1,31 @@
+{
+  "name": "morse-webaudio",
+  "version": "1.0.0",
+  "description": "Morse code audio generation using web audio apis",
+  "main": "morse.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grasuth/morse-webaudio.git"
+  },
+  "keywords": [
+    "morse",
+    "hamr",
+    "hamradio"
+  ],
+  "author": "Graeme Sutherland <grasuth@nodestone.io>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/grasuth/morse-webaudio/issues"
+  },
+  "homepage": "https://github.com/grasuth/morse-webaudio#readme",
+  "devDependencies": {
+    "babel-cli": "^6.9.0"
+  }
+}

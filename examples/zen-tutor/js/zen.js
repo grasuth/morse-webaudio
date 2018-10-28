@@ -1,13 +1,13 @@
 //
-// Weeks and lessons for 
+// Weeks and lessons for
 // Zen and the art of Radiotelegraphy
 
-var ZenTutor = (function($) {
-    
+var ZenTutor = function() {
+
     var zt = {};
-    
+
     zt.enabled = true;
-   
+
     zt.weeks = {
        1: {
            wpm: 15,
@@ -51,37 +51,37 @@ var ZenTutor = (function($) {
            }
        }
    };
-   
+
   zt.train = function(mg, weekNo, dayNo, displayElement) {
     var week = zt.weeks[weekNo]
       , dayGroups = week.days[dayNo].split(/\s+/);
-      
+
     zt.enabled = true;
-      
+
     mg.setWpm(week.wpm);
-    
+
     function keyGroup() {
       var group = dayGroups.shift();
-      
+
       if (group && zt.enabled) {
         return mg.key(group + ' ').then(function() {
           if (displayElement) {
             displayElement.append('<span> ' + group + '</span>');
           }
-          
+
           return keyGroup();
         });
       } else {
         return Promise.reject(null);
       }
     }
-    
+
     return keyGroup();
    };
-   
+
    zt.stop = function() {
      zt.enabled = false;
    };
-   
-  return zt; 
-})(jQuery);
+
+  return zt;
+};

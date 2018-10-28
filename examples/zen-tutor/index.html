@@ -9,17 +9,17 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </head>
-<body ngApp="zenCW">
+<body ngApp="cwTool">
 <h1>Zen CW Lessons</h1>
 <div>
-  <label for="week">Week 
+  <label for="week">Week
     <select name="week" id="week">
       <option value="1" selected>1: ETANIM</option>
     </select>
   </label>
 </div>
 <div>
-  <label for="day">Day 
+  <label for="day">Day
     <select name="day" id="day">
       <option value="1"selected>1</option>
       <option value="2">2</option>
@@ -40,18 +40,18 @@
 <script src="js/angular.min.js"></script>
 <script src="js/angular-route.min.js"></script>
 <script src="js/jquery.min.js"></script>
-<script src="js/morse.js"></script>
+<script src="lib/morse-generator.js"></script>
 <script src="../../lib/zen.js"></script>
 <script type="text/javascript">
   $(document).ready(function () {
     var mg = MorseGenerator()
       , zt = ZenTutor
       , $display = $('#display');
-      
+
     $('#go').click(function(e) {
       var week = $('#week').val()
         , day = $('#day').val();
-      
+
       $display.empty();
       zt.train(mg, week, day, $display)
         .catch(function(e) {
